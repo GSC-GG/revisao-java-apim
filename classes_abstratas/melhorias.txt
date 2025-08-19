@@ -1,0 +1,2 @@
+O imposto sobre o salário poderia ser aplicado diretamente na construção do funcionário ou ao defini-lo através de um setter.
+O imprimeDados poderia ser simplesmente um override do toString.

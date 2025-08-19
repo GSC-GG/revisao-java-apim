@@ -1,0 +1,60 @@
+@startuml
+
+abstract class Cliente {
+	# nome : String
+	+ cadastrarConta() : void
+	+ alterarConta() : void
+	+ removerConta() : void
+}
+class PessoaFisica {
+	- cpf : String
+}
+class PessoaJuridica {
+	- cnpj : String
+}
+
+Cliente <|-- PessoaFisica
+Cliente <|-- PessoaJuridica
+
+abstract class Conta {
+	# saldo : int
+}
+class ContaCorrente
+class ContaCDI {
+	- {static} cdi : int
+	- {static} taxa = 7 : int
+	+ taxa() : int
+}
+class ContaInvAut {
+	+ cadastrarProduto() : void
+}
+interface CalculoSaldo {
+	+ calcularSaldo() : void
+}
+
+Conta <|-- ContaCorrente
+Conta <|-- ContaCDI
+Conta <|-- ContaInvAut
+Conta "1..*" --* "1" Cliente
+ContaCDI ..|> CalculoSaldo
+ContaInvAut ..|> CalculoSaldo
+
+abstract class Produto {
+	# nome : String
+	# descricao : String
+	# rendimento : int
+	# emCarencia : bool
+}
+class RendaFixa {
+	- diasCarencia : int
+}
+class RendaVariavel {
+	emCarencia = false
+	+ calculoRenda() : void
+}
+
+RendaFixa --|> Produto
+RendaVariavel --|> Produto
+Produto "1" --> "1" ContaInvAut
+
+@enduml
